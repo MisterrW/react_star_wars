@@ -1,7 +1,7 @@
 import React from 'react';
-import ListElement from './ListElement';
+import Person from './Person';
 
-class Main extends React.Component {
+class People extends React.Component {
   // hello(){
   //   return "hello";
   // }
@@ -22,20 +22,22 @@ class Main extends React.Component {
   }
 
   render(){
-    let names = [];
+    let peopleArray = [];
     for(var person in this.props.people){
-      names.push(this.props.people[person].name);
+      peopleArray.push(this.props.people[person]);
     }
     return(
       <div>
-      <h1>A person</h1>
-      <ul>
-      {names.map(function(name, index){
-                         return <ListElement name={name}></ListElement>;
-                       })}
-      </ul>
-      </div>
-      )}
+      <div>
+      {peopleArray.map(function(person, index)
+        {
+         return <Person key={index} person={person}></Person>;
+       }
+       )
+    }
+    </div>
+    </div>
+    )}
   }
 
-  export default Main;
+  export default People;

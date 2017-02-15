@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Main from '../components/Main';
+import People from '../components/People';
 import Querier from '../models/querier';
 
 class Controller {
@@ -75,7 +75,7 @@ class Controller {
   
   render(){
     ReactDOM.render(
-     <Main people={this.people} planets={this.planets} films={this.films}></Main>
+     <People people={this.people} planets={this.planets} films={this.films}></People>
       , document.querySelector('#app')
       )
   }
