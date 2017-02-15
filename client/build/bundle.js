@@ -9453,9 +9453,9 @@ var _react = __webpack_require__(31);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _Byebox = __webpack_require__(82);
+var _ListElement = __webpack_require__(182);
 
-var _Byebox2 = _interopRequireDefault(_Byebox);
+var _ListElement2 = _interopRequireDefault(_ListElement);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -9474,14 +9474,24 @@ var Main = function (_React$Component) {
   function Main(props) {
     _classCallCheck(this, Main);
 
-    return _possibleConstructorReturn(this, (Main.__proto__ || Object.getPrototypeOf(Main)).call(this));
+    var _this = _possibleConstructorReturn(this, (Main.__proto__ || Object.getPrototypeOf(Main)).call(this));
+
+    console.log("hello");
+    return _this;
   }
 
   _createClass(Main, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
+      console.log("hello");
       console.log(this.props);
       this.state = this.props;
+    }
+  }, {
+    key: 'componentDidUpdate',
+    value: function componentDidUpdate() {
+      console.log("I updated");
+      console.log(this.props);
     }
   }, {
     key: 'render',
@@ -9492,9 +9502,13 @@ var Main = function (_React$Component) {
         _react2.default.createElement(
           'h1',
           null,
-          this.props.data.hello
+          'A person'
         ),
-        _react2.default.createElement(_Byebox2.default, { data: this.props.data })
+        _react2.default.createElement(
+          _ListElement2.default,
+          null,
+          'this.props.people'
+        )
       );
     }
   }]);
@@ -9515,42 +9529,7 @@ module.exports = __webpack_require__(110);
 
 
 /***/ }),
-/* 82 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _react = __webpack_require__(31);
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var Byebox = function Byebox(props) {
-  return _react2.default.createElement(
-    'ul',
-    null,
-    _react2.default.createElement(
-      'li',
-      null,
-      props.data.hello
-    ),
-    _react2.default.createElement(
-      'li',
-      null,
-      props.data.bye
-    )
-  );
-};
-
-exports.default = Byebox;
-
-/***/ }),
+/* 82 */,
 /* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -21796,6 +21775,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 window.onload = function () {
   var controller = new _controller2.default();
   controller.render();
+  controller.buildLists();
 };
 
 /***/ }),
@@ -21840,12 +21820,78 @@ var Controller = function () {
       hello: "hello",
       bye: "goodbye"
     };
+    this.people = {};
+    this.planets = {};
+    this.films = {};
   }
 
   _createClass(Controller, [{
+    key: 'buildPeople',
+    value: function buildPeople(baseURL) {
+      for (var i = 1; i < 11; i++) {
+        var thisURL = baseURL + "people/" + i;
+        console.log(thisURL);
+        this.makeQuery(thisURL, function (response) {
+          console.log(this);
+          this.people[response.name] = response;
+          this.render();
+          if (Object.keys(this.people).length === 10) {
+            console.log(this.people);
+          }
+        }.bind(this));
+      }
+    }
+  }, {
+    key: 'buildPlanets',
+    value: function buildPlanets(baseURL) {
+      for (var i = 1; i < 11; i++) {
+        var thisURL = baseURL + "planets/" + i;
+        console.log(thisURL);
+        this.makeQuery(thisURL, function (response) {
+          console.log(this);
+          this.planets[response.name] = response;
+          this.render();
+          if (Object.keys(this.planets).length === 10) {
+            console.log(this.planets);
+          }
+        }.bind(this));
+      }
+    }
+  }, {
+    key: 'buildFilms',
+    value: function buildFilms(baseURL) {
+      for (var i = 1; i < 8; i++) {
+        var thisURL = baseURL + "films/" + i;
+        console.log(thisURL);
+        this.makeQuery(thisURL, function (response) {
+          console.log(this);
+          this.films[response.title] = response;
+          this.render();
+          if (Object.keys(this.films).length === 7) {
+            console.log(this.films);
+          }
+        }.bind(this));
+      }
+    }
+  }, {
+    key: 'buildLists',
+    value: function buildLists() {
+      var baseURL = "http://www.swapi.co/api/";
+      //people
+      this.buildPeople(baseURL);
+      this.buildPlanets(baseURL);
+      this.buildFilms(baseURL);
+    }
+  }, {
+    key: 'makeQuery',
+    value: function makeQuery(url, callback) {
+      var maker = this.querier.make.bind(this);
+      maker(url, callback.bind(this));
+    }
+  }, {
     key: 'render',
     value: function render() {
-      _reactDom2.default.render(_react2.default.createElement(_Main2.default, { data: this.data }), document.querySelector('#app'));
+      _reactDom2.default.render(_react2.default.createElement(_Main2.default, { people: this.people, planets: this.planets, films: this.films }), document.querySelector('#app'));
     }
   }]);
 
@@ -21865,13 +21911,72 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var Querier = function Querier() {
-  _classCallCheck(this, Querier);
-};
+var Querier = function () {
+  function Querier() {
+    _classCallCheck(this, Querier);
+  }
+
+  _createClass(Querier, [{
+    key: 'make',
+    value: function make(url, callback) {
+      console.log(callback);
+      var request = new XMLHttpRequest();
+      request.open('GET', url);
+      request.onload = function () {
+        if (request.status === 200) {
+          var jsonString = request.responseText;
+          var response = JSON.parse(jsonString);
+          callback(response);
+        }
+      }.bind(this);
+      request.send(null);
+    }
+
+    // update(){
+
+    // }
+
+    // test(){
+    //   console.log(this);
+    // }
+
+  }]);
+
+  return Querier;
+}();
 
 exports.default = Querier;
+
+/***/ }),
+/* 182 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(31);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var ListElement = function ListElement(props) {
+  return _react2.default.createElement(
+    'li',
+    null,
+    props.people
+  );
+};
+
+exports.default = ListElement;
 
 /***/ })
 /******/ ]);
