@@ -22,10 +22,18 @@ class Main extends React.Component {
   }
 
   render(){
+    let names = [];
+    for(var person in this.props.people){
+      names.push(this.props.people[person].name);
+    }
     return(
       <div>
       <h1>A person</h1>
-      <ListElement>this.props.people</ListElement>
+      <ul>
+      {names.map(function(name, index){
+                         return <ListElement name={name}></ListElement>;
+                       })}
+      </ul>
       </div>
       )}
   }

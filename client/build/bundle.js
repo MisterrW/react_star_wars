@@ -9496,6 +9496,10 @@ var Main = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
+      var names = [];
+      for (var person in this.props.people) {
+        names.push(this.props.people[person].name);
+      }
       return _react2.default.createElement(
         'div',
         null,
@@ -9505,9 +9509,11 @@ var Main = function (_React$Component) {
           'A person'
         ),
         _react2.default.createElement(
-          _ListElement2.default,
+          'ul',
           null,
-          'this.props.people'
+          names.map(function (name, index) {
+            return _react2.default.createElement(_ListElement2.default, { name: name });
+          })
         )
       );
     }
@@ -21972,7 +21978,7 @@ var ListElement = function ListElement(props) {
   return _react2.default.createElement(
     'li',
     null,
-    props.people
+    props.name
   );
 };
 
