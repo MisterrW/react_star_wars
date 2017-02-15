@@ -1,14 +1,6 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import Main from './components/Main';
+import Controller from './controllers/controller';
 
 window.onload = function(){
-  const data = {
-    hello: "hello",
-    bye: "goodbye"
-  };
-
-  ReactDOM.render(
-    <Main data={data}></Main>, document.querySelector('#app')
-    )
+  const controller = new Controller();
+  controller.render();
 }

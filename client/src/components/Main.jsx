@@ -5,11 +5,8 @@ class Main extends React.Component {
   // hello(){
   //   return "hello";
   // }
-  constructor() {
+  constructor(props) {
     super();
-
-
-    // this.state = this.props.data;
   }
 
   componentDidMount() {
