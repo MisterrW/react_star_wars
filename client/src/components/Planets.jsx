@@ -1,5 +1,6 @@
 import React from 'react';
 import Planet from './planet';
+import {Link} from 'react-router';
 import Querier from '../models/querier'
 
 class Planets extends React.Component {
@@ -44,7 +45,17 @@ class Planets extends React.Component {
     
     return(
       <div>
+      <ul>
+        <li>
+          <Link to="/planets">planets</Link>
+        </li>
+        <li>
+          <Link to="/people">people</Link>
+        </li>
+      </ul>
+      <div>
       {planetsElementArr}
+    </div>
     </div>
     )
   }

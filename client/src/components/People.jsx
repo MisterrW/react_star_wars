@@ -1,6 +1,8 @@
 import React from 'react';
 import Person from './Person';
-import Querier from '../models/querier'
+import Querier from '../models/querier';
+import {Link} from 'react-router';
+import Planets from './planets';
 
 class People extends React.Component {
   // hello(){
@@ -44,8 +46,18 @@ class People extends React.Component {
      }
      
      return(
+      <div>
+      <ul>
+        <li>
+          <Link to="/planets">planets</Link>
+        </li>
+        <li>
+          <Link to="/people">people</Link>
+        </li>
+      </ul>
        <div>
        {peopleElementArr}
+     </div>
      </div>
      )
    }
