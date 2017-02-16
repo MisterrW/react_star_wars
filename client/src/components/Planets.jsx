@@ -15,8 +15,6 @@ class Planets extends React.Component {
 
   componentDidMount() {
       this.buildPlanets("http://www.swapi.co/api/");
-      // this.setState(this.stateLike);
-      // console.log(this.state);
     }
 
   buildPlanets(baseURL){
@@ -38,10 +36,6 @@ class Planets extends React.Component {
   }
 
   render(){
-    // let planetsArray = [];
-    // for(var planet in this.state.planets){
-    //   planetsArray.push(this.state.planets[planet]);
-    // }
     var planetsElementArr = []
     for(var aplanet in this.state.planetsArr){
       let planet = this.state.planetsArr[aplanet];

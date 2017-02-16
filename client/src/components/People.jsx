@@ -10,20 +10,18 @@ class People extends React.Component {
     super();
     this.querier = new Querier();
     console.log("hello");
-    this.people = {};
-    this.buildPeople("http://www.swapi.co/api/");
+    this.state = {people: {}, peopleArr: []};
+    this.stateLike = {people: {}, peopleArr: []};
   }
 
   buildPeople(baseURL){
     for(var i=1; i<11; i++){
       let thisURL = baseURL + "people/" + i;
-      console.log(thisURL);
       this.makeQuery(thisURL, function(response){
-        console.log(this);
-        this.people[response.name] = response;
-        this.render();
-        if (Object.keys(this.people).length === 10){
-          console.log(this.people);
+        this.stateLike.people[response.name] = response;
+        this.stateLike.peopleArr.push(response);
+        this.setState(this.stateLike);
+        if (Object.keys(this.state.people).length === 10){
         }
       }.bind(this));
     }
@@ -35,35 +33,22 @@ class People extends React.Component {
   }
 
   componentDidMount() {
-    console.log("hello")
-    console.log(this.props);
-    this.state = this.props;
-  }
-
-  componentDidUpdate() {
-    console.log("I updated")
-    console.log(this.props);
-  }
-
-  render(){
-    console.log("rendering");
-    let peopleArray = [];
-    for(var person in this.people){
-      console.log(person);
-      peopleArray.push(this.people[person]);
+      this.buildPeople("http://www.swapi.co/api/");
     }
-    return(
-      <div>
-      {peopleArray.map(function(person, index)
-        {
-          console.log(person);
-          return <Person key={index} person={person}></Person>;
-        }
-        )
-    }
-    </div>
-    )
-  }
+
+ render(){
+     var peopleElementArr = []
+     for(var aperson in this.state.peopleArr){
+       let person = this.state.peopleArr[aperson];
+       peopleElementArr.push(<Person key={person.name} person={person}></Person>);
+     }
+     
+     return(
+       <div>
+       {peopleElementArr}
+     </div>
+     )
+   }
 }
 
 export default People;
