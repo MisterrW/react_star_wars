@@ -1,7 +1,7 @@
 import React from 'react';
 
-const ListElement = (props) => {
-  console.log(props);
+const Person = (props) => {
+  console.log("working...?");
   return(
     <div>
     <h3>{props.person.name}</h3>
@@ -14,4 +14,4 @@ const ListElement = (props) => {
     )
 }
 
-export default ListElement;
+export default Person;
