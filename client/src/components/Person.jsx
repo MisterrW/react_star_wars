@@ -1,9 +1,8 @@
 import React from 'react';
 
 const Person = (props) => {
-  console.log("working...?");
   return(
-    <div>
+    <div className="displayBox">
     <h3>{props.person.name}</h3>
     <ul>
     <li>Height: {props.person.height} cm</li>

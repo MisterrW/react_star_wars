@@ -2,12 +2,11 @@ import React from 'react';
 import Person from './Person';
 import Querier from '../models/querier';
 import {Link} from 'react-router';
-import Planets from './planets';
+import Planets from './Planets';
+import Filmss from './Films';
 
 class People extends React.Component {
-  // hello(){
-  //   return "hello";
-  // }
+
   constructor(props) {
     super();
     this.querier = new Querier();
@@ -23,8 +22,6 @@ class People extends React.Component {
         this.stateLike.people[response.name] = response;
         this.stateLike.peopleArr.push(response);
         this.setState(this.stateLike);
-        if (Object.keys(this.state.people).length === 10){
-        }
       }.bind(this));
     }
   }
@@ -35,32 +32,30 @@ class People extends React.Component {
   }
 
   componentDidMount() {
-      this.buildPeople("http://www.swapi.co/api/");
-    }
+    document.querySelector(".subHead").innerText = "//people";
+    this.buildPeople("http://www.swapi.co/api/");
+  }
 
- render(){
-     var peopleElementArr = []
-     for(var aperson in this.state.peopleArr){
-       let person = this.state.peopleArr[aperson];
-       peopleElementArr.push(<Person key={person.name} person={person}></Person>);
-     }
-     
-     return(
-      <div>
-      <ul>
-        <li>
-          <Link to="/planets">planets</Link>
-        </li>
-        <li>
-          <Link to="/people">people</Link>
-        </li>
-      </ul>
-       <div>
-       {peopleElementArr}
-     </div>
-     </div>
-     )
+  render(){
+   var peopleElementArr = []
+   for(var aperson in this.state.peopleArr){
+     let person = this.state.peopleArr[aperson];
+     peopleElementArr.push(<Person key={person.name} person={person}></Person>);
    }
+
+   return(
+    <div>
+    <div className="links">
+          <div className="link"><Link to="/films">Films</Link></div>
+          <div className="link"><Link to="/planets">Planets</Link></div>
+          <div className="link"><Link to="/people">People</Link></div>
+          </div>
+    <div className="flexy">
+    {peopleElementArr}
+    </div>
+    </div>
+    )
+ }
 }
 
 export default People;

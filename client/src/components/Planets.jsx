@@ -4,9 +4,7 @@ import {Link} from 'react-router';
 import Querier from '../models/querier'
 
 class Planets extends React.Component {
-  // hello(){
-  //   return "hello";
-  // }
+
   constructor(props) {
     super();
     this.querier = new Querier();
@@ -15,8 +13,9 @@ class Planets extends React.Component {
   }
 
   componentDidMount() {
-      this.buildPlanets("http://www.swapi.co/api/");
-    }
+    document.querySelector(".subHead").innerText = "//planets";
+    this.buildPlanets("http://www.swapi.co/api/");
+  }
 
   buildPlanets(baseURL){
     for(var i=1; i<11; i++){
@@ -25,8 +24,6 @@ class Planets extends React.Component {
         this.stateLike.planets[response.name] = response;
         this.stateLike.planetsArr.push(response);
         this.setState(this.stateLike);
-        if (Object.keys(this.state.planets).length === 10){
-        }
       }.bind(this));
     }
   }
@@ -45,19 +42,16 @@ class Planets extends React.Component {
     
     return(
       <div>
-      <ul>
-        <li>
-          <Link to="/planets">planets</Link>
-        </li>
-        <li>
-          <Link to="/people">people</Link>
-        </li>
-      </ul>
-      <div>
+      <div className="links">
+            <div className="link"><Link to="/films">Films</Link></div>
+            <div className="link"><Link to="/planets">Planets</Link></div>
+            <div className="link"><Link to="/people">People</Link></div>
+            </div>
+      <div className="flexy">
       {planetsElementArr}
-    </div>
-    </div>
-    )
+      </div>
+      </div>
+      )
   }
 }
 
